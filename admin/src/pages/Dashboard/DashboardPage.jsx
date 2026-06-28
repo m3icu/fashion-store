@@ -8,7 +8,9 @@ export default function DashboardPage() {
         const response = await getProfile();
         console.log(response.data);
       } catch (error) {
-        console.error(error);
+        console.log("Status:", error.response?.status);
+        console.log("Data:", error.response?.data);
+        console.log("Headers:", error.response?.headers);
       }
     }
 
@@ -16,6 +18,14 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <h1>Dashboard Page</h1>
+    <div className="bg-surface rounded-card border border-border p-8 shadow-card">
+      <h1 className="text-3xl font-bold text-text">
+        Dashboard
+      </h1>
+
+      <p className="mt-3 text-text-secondary">
+        Admin dashboard sedang bekerja
+      </p>
+    </div>
   );
 }
