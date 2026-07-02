@@ -1,5 +1,10 @@
-import axiosInstance from "./axios";
+import api from "./axios";
 
-export function getDashboardStatistics() {
-  return axiosInstance.get('/dashoboard/statistics');
+export async function getDashboardStatistics() {
+  const { data } = await api.get("/dashboard/statistics");
+  return data.data;
+}
+
+export function getRecentOrders() {
+  return api.get("/dashboard/recent-orders");
 }

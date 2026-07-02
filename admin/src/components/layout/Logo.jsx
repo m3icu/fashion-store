@@ -2,7 +2,8 @@ export default function Logo() {
   return (
     <div className="px-6 py-8">
 
-      <h1 className="text-2xl font-bold tracking-wide">
+      <h1 className="text-logo-text text-5xl font-bold tracking-wide leading-none">
+        VYRA
         FASHION
       </h1>
 

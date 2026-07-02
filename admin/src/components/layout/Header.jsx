@@ -25,7 +25,7 @@ export default function Header() {
         </h2>
 
         <p className="text-text-secondary text-sm">
-          WELCOME BAAACK
+          Selamat Datang, Admin
         </p>
   
       </div>

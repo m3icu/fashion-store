@@ -17,7 +17,7 @@ export default function NavItem({
         px-4
         py-3
         transition-all
-        duration-200
+        duration-300
       
         ${
           isActive

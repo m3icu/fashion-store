@@ -30,7 +30,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
 
         <h1 className="text-3xl font-bold text-center mb-8">
-          Fashion Store Admin
+          Vyra Fashion Admin
         </h1>
 
         <form
