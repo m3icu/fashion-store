@@ -6,6 +6,7 @@ import ProductToolbar from "./ProductToolbar";
 import ProductTable from "./ProductTable";
 import ProductPagination from "./ProductPagination";
 import AddProductModal from "../../components/Product/AddProductModal";
+import CategoryTable from "../../components/Category/CategoryTable";
 
 export default function ProductsPage() {
 

@@ -1,20 +1,65 @@
 import { useState } from "react";
 import ProductForm from "./ProductForm";
+import UploadImage from "./UploadImage";
+import VariantTable from "./VariantTable";
+import {
+  uploadProductImage,
+  createProduct,
+} from "../../api/product.api";
 
 export default function AddProductModal({ onClose }) {
-
+  
+  const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     name: "",
     categoryId: "",
     description: "",
   });
-
+  const [variants, setVariants] = useState([
+    {
+      sku: "",
+      variantName: "",
+      price: "",
+      stock: "",
+    },
+  ]);
   
-  function handleSubmit() {
-    console.log(form);
+async function handleSubmit() {
+  try {
+    let imageUrl = "";
+    
+    if (image) {
+      const uploadResult =
+        await uploadProductImage(image);
+
+      imageUrl = uploadResult.imageUrl;
+    }
+
+    const payload = {
+      ...form,
+      imageUrl,
+      variants,
+    };
+
+    console.log(payload);    
+
+    const result =
+      await createProduct(payload);
+   
+    console.log(result);
+
+    alert("Produk berhasil dibuat!")
+
+    onClose();
+
+  } catch(error) {
+    console.error(error);
+
+    alert("Gagal membuat product.");
   }
- 
-  return (
+}  
+    
+   return (
     <div
       className="
         fixed
@@ -51,6 +96,18 @@ export default function AddProductModal({ onClose }) {
           form={form}
           setForm={setForm}
         />
+
+        <UploadImage
+          image={image}
+          setImage={setImage}
+        />
+
+        <VariantTable
+          variants={variants}
+          setVariants={setVariants}
+        />
+        
+
         <div className="flex justify-end gap-3 mt-8">
         
           <button
@@ -80,6 +137,7 @@ export default function AddProductModal({ onClose }) {
           </button>
    
         </div>
+
 
       </div>
 

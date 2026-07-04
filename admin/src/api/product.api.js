@@ -6,5 +6,31 @@ export async function getProducts(params) {
   });
 
   return data;
+}
 
+export async function uploadProductImage(file) {
+  const formData = new FormData();
+
+  formData.append("image", file);
+
+  const { data } = await api.post(
+    "/products/upload",
+    formData,
+    {
+       headers: {
+         "Content-Type": "multipart/form-data",
+       },
+     }
+   );
+
+   return data;
+}
+
+export async function createProduct(payload) {
+  const { data } = await api.post(
+    "/products",
+    payload
+  );
+
+  return data;
 }

@@ -1,38 +1,18 @@
-export default function AddProductModal({ onClose }) {
+export default function variantTable({
+  variants,
+  setVariants,
+}) {
   return (
-    <div
-      className="
-        fixed
-        inset-0
-        bg-black/40
-        flex
-        items-center
-        justify-center
-        z-50
-      "
-    >
-      <div
-        className="
-          bg-white
-          rounded-xl
-          w-full
-          max-w-4xl
-          p-6
-        "
-      >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold">
-            Add Product
-          </h2>
+    <div className="mt-8">
+      <h3 className="text-lg font-semibold">
+        Product Variants
+      </h3>
 
-          <button onClick={onClose}>
-            ✕
-          </button>
-        </div>
+      <p className="text-sm text-text-secondary mb-4">
+        Add product variants, prices and stock.
+      </p>
 
-        <p>form will be here...</p>
-
-      </div>
+      table here...
     </div>
   );
 }
