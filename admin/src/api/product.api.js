@@ -64,3 +64,11 @@ export async function updateProductImage(id, file) {
 
   return data;
 }
+
+export async function deleteProduct(id) {
+  const { data } = await api.delete(
+    `/products/${id}`
+  );
+
+  return data;
+}

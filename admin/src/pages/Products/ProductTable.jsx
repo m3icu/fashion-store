@@ -2,6 +2,7 @@ export default function ProductTable({
   products = [],
   isLoading,
   onEdit,
+  onDelete,
 }) {
 
   if (isLoading) {
@@ -23,7 +24,7 @@ export default function ProductTable({
             <th className="p-4">Variants</th>
             <th className="p-4">Price</th>
             <th className="p-4">Stock</th>
-            <th className="p-4 text-canter">Action</th>
+            <th className="p-4 text-center">Action</th>
           </tr>
         </thead>
       
@@ -84,6 +85,7 @@ export default function ProductTable({
                     </button>
                
                     <button
+                      onClick={() => onDelete(product)}
                       className="px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600">
                       Delete
                     </button>
