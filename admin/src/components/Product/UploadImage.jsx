@@ -7,12 +7,14 @@ export default function UploadImage({
 }) {
  
   const preview =
-  image
-    ? URL.createObjectURL(image)
+    image
+      ? typeof image === "string"
+        ? image
+        : URL.createObjectURL(image)
     : null;
   
   const fileSize =
-    image
+    image && typeof image !== "string"
       ?(image.size / 1024 /1024).toFixed(2)
       : "";
 
@@ -79,13 +81,17 @@ export default function UploadImage({
       
         />
 
-        <p className="text-sm text-text-secondary mt-3">
-          {image.name}
-        </p>
+        {typeof image !== "string" && (
+          <>  
+            <p className="text-sm text-text-secondary mt-3">
+              {image.name}
+            </p>
 
-        <p className="text-sm text-text-secondary">
-          {fileSize} MB
-        </p>
+            <p className="text-sm text-text-secondary">
+              {fileSize} MB
+            </p>
+          </>
+        )}
 
         <p className="mt-1 text-xs text-text-medium">
           Click to change image

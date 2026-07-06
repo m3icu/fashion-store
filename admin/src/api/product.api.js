@@ -34,3 +34,33 @@ export async function createProduct(payload) {
 
   return data;
 }
+
+export async function updateProduct(id, payload) {
+  console.log("UPDATE API CALLED", id);
+  const { data } = await api.put(
+    `/products/${id}`,
+    payload
+  );
+ 
+  console.log("UPDATE RESPONSE", data);
+
+  return data;
+}
+
+export async function updateProductImage(id, file) {
+  const formData = new FormData();
+  
+  formData.append("image", file);
+
+  const{ data } = await api.put(
+    `/products/${id}/image`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return data;
+}

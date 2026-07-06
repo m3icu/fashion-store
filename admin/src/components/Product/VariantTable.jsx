@@ -47,11 +47,11 @@ export default function VariantTable({
       <table className="w-full border border-border rounded-lg overflow-hidden">
         <thead className="bg-gray-100">
           <tr>
-            <th classsName="p-3 text-left">Variant</th>  
-            <th classsName="p-3 text-left">SKU</th>
-            <th classsName="p-3 text-left">Price</th>
-            <th classsName="p-3 text-left">Stock</th>
-            <th classsName="p-3 text-center">Action</th>
+            <th className="p-3 text-left">Variant</th>  
+            <th className="p-3 text-left">SKU</th>
+            <th className="p-3 text-left">Price</th>
+            <th className="p-3 text-left">Stock</th>
+            <th className="p-3 text-center">Action</th>
           </tr>
         </thead> 
  
