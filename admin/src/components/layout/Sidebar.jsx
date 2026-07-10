@@ -1,5 +1,6 @@
 import Logo from "./Logo";
 import NavItem from "./NavItem";
+import { useNavigate } from "react-router-dom";
 
 import {
   LayoutDashboard,
@@ -11,6 +12,15 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin");
+
+    navigate("/login", { replace: true });
+  }
+
   return (
     <aside
       className="
@@ -34,7 +44,7 @@ export default function Sidebar() {
         <NavItem
           icon={LayoutDashboard}
           title="Dashboard"
-          to="/"
+          to="/dashboard"
         />
 
         <NavItem
@@ -68,9 +78,9 @@ export default function Sidebar() {
         <NavItem
           icon={LogOut}
           title="Logout"
-          to="/logout"
+          onClick={handleLogout}
         />
-
+        
       </div>
  
     </aside>

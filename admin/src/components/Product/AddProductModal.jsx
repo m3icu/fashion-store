@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProductForm from "./ProductForm";
 import UploadImage from "./UploadImage";
 import VariantTable from "./VariantTable";
+import toast from "react-hot-toast";
 import {
   uploadProductImage,
   createProduct,
@@ -48,14 +49,14 @@ async function handleSubmit() {
    
     console.log(result);
 
-    alert("Produk berhasil dibuat!")
+    toast.success("Produk berhasil dibuat!")
 
     onClose();
 
   } catch(error) {
     console.error(error);
 
-    alert("Gagal membuat product.");
+    toast.error("Gagal membuat product.");
   }
 }  
     

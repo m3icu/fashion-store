@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
   createCategory,
   updateCategory,
@@ -34,7 +35,7 @@ export default function AddCategoryModal({
 
         await createCategory(form);
 
-        alert("Category berhasil dibuat!");
+        toast.success("Category berhasil dibuat!");
 
       }
 
@@ -43,7 +44,7 @@ export default function AddCategoryModal({
 
     } catch (err) {
       console.error(err);
-      alert("Gagal menyimpan category");
+      toast.error("Gagal menyimpan category");
     }
   }
 

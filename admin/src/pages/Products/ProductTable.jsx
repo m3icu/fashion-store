@@ -3,7 +3,56 @@ export default function ProductTable({
   isLoading,
   onEdit,
   onDelete,
+
+  selectedProducts,
+  setSelectedProducts,
 }) {
+
+  function toggleProduct(id) {
+    if (selectedProducts.includes(id)) {
+      setSelectedProducts(
+        selectedProducts.filter((item) => item !== id)
+      );
+    } else {
+      setSelectedProducts([
+        ...selectedProducts,
+        id,
+      ]);
+    }
+  }
+
+  function toggleSelectAll() {
+    if (selectedProducts.length === products.length) {
+      setSelectedProducts([]);
+    } else {
+      setSelectedProducts(
+        products.map((product) => product.id)
+      );
+    }
+  }
+
+  function toggleProduct(id) {
+    if (selectedProducts.includes(id)) {
+      setSelectedProducts(
+        selectedProducts.filter((item) => item !== id)
+      );
+    } else {
+      setSelectedProducts([
+         ...selectedProducts,
+        id,
+      ]);
+    }
+  }
+
+  function toggleSelectAll() {
+    if (selectedProducts.length === products.length) {
+      setSelectedProducts([]);
+    } else {
+      setSelectedProducts(
+        products.map((item) => item.id)
+      );
+    }
+  }
 
   if (isLoading) {
     return (
@@ -18,6 +67,18 @@ export default function ProductTable({
       <table className="w-full">
         <thead>
           <tr className="border-b border-border text-left">
+
+            <th className="p-4 w-10">
+              <input
+                type="checkbox"
+                checked={
+                  products.length > 0 &&
+                  selectedProducts.length === products.length
+                }
+                onChange={toggleSelectAll}
+              />
+            </th>
+
             <th className="p-4">Image</th>
             <th className="p-4">Product</th>
             <th className="p-4">Category</th>
@@ -42,7 +103,16 @@ export default function ProductTable({
               <tr
                 key={product.id}
                 className="border-b border-border hover:bg-gray-50"
-              >
+              > 
+
+              <td className="p-4">
+                <input
+                type="checkbox"
+                checked={selectedProducts.includes(product.id)}
+                onChange={() => toggleProduct(product.id)}
+               />
+             </td>
+ 
                 <td className="p-4">
                   <img
                     src={

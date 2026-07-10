@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 import { useProducts } from "../../hooks/useProducts";
 import { deleteProduct} from "../../api/product.api";
@@ -8,12 +9,14 @@ import ProductTable from "./ProductTable";
 import ProductPagination from "./ProductPagination";
 
 import AddProductModal from "../../components/Product/AddProductModal";
-import CategoryTable from "../../components/Category/CategoryTable";
 import EditProductModal from "../../components/Product/EditProductModal";
 import DeleteProductModal from "../../components/Product/DeleteProductModal";
 
+
+
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("newest");
@@ -21,6 +24,7 @@ export default function ProductsPage() {
 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProducts, setSelectedProducts] = useState([]);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [deleteLoading,  setDeleteLoading] = useState(false);
   
@@ -34,7 +38,7 @@ export default function ProductsPage() {
     refetch,
   } = useProducts({
     page,
-    limit: 10,
+    limit,
     search,
     category,
     sort,
@@ -52,9 +56,28 @@ export default function ProductsPage() {
         onAddProduct={() => setOpenAddModal(true)}
       />
 
+      {selectedProducts.length > 0 && (
+        <div className="flex items-center justify-between bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+          <span className="text-red-700 font-medium">
+            {selectedProducts.length} produk dipilih
+          </span>
+
+          <button
+            onClick={() => setOpenDeleteModal(true)}            
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium"
+          >
+            Delete Selected
+          </button>
+        </div>
+      )} 
+
       <ProductTable 
         products={data?.data ?? []}
         isLoading={isLoading}
+
+        selectedProducts={selectedProducts}
+        setSelectedProducts={setSelectedProducts}
+
         onEdit={(product) => {
           setSelectedProduct(product);
           setOpenEditModal(true);
@@ -89,38 +112,57 @@ export default function ProductsPage() {
         <DeleteProductModal
           open={openDeleteModal}
           product={selectedProduct}
+          selectedProducts={selectedProducts}
           loading={deleteLoading}
           onClose={() => {
             setOpenDeleteModal(false);
             setSelectedProduct(null);
           }}
+
           onConfirm={async () => {
             try {
               setDeleteLoading(true);
+
+              if (selectedProducts.length > 0) {
+
+                await Promise.all(
+                  selectedProducts.map((id) => deleteProduct(id))
+                );
+
+                setSelectedProducts([]);
  
-              await deleteProduct(selectedProduct.id);
+                toast.success(
+                  `${selectedProducts.length} produk berhasil dihapus!`
+                );
+
+              } else {
+
+                await deleteProduct(selectedProduct.id);
+   
+                toast.success("Produk berhasil dihapus!");
+              }
 
               setOpenDeleteModal(false);
               setSelectedProduct(null);
 
-              refetch();
-    
-              alert("Produk berhasil dihapus!");
- 
-            } catch (error) {
-              console.error(error);
-              alert("Gagal menghapus produk.");
-            } finally {
-              setDeleteLoading(false);
-            }
-          }} 
-        /> 
-      )}
+              await refetch();
 
+           } catch (error) {
+              console.error(error);
+              toast.error("Gagal menghapus produk.");
+           } finally {
+             setDeleteLoading(false);
+           }
+         }}
+       />
+     )}
+    
       <ProductPagination
         pagination={data?.pagination}
         page={page}
         setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
       />
     </div>
   );

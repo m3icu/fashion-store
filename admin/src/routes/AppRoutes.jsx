@@ -6,6 +6,7 @@ import ProductsPage from "../pages/Products/ProductsPage";
 import CategoryPage from "../pages/Categories/CategoryPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminLayout from "../layouts/AdminLayout";
+import OrdersPage from "../pages/Orders/OrdersPage";
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,7 @@ export default function AppRoutes() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/categories" element={<CategoryPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
           </Route>
         </Route>
       </Routes>

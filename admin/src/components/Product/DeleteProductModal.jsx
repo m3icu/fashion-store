@@ -4,6 +4,7 @@ export default function DeleteProductModal({
   onConfirm,
   product,
   loading,
+  selectedProducts = [],
 }) {
   if (!open) return null;
 
@@ -40,12 +41,23 @@ export default function DeleteProductModal({
         </h2>
 
         <p className="text-gray-600">
-          Are you sure you want to delete
-          <span className="font-semibold">
-            {" "}
-            {product?.name}
-          </span>
-          ?
+          {selectedProducts.length > 0 ? (
+            <>  
+              Are you sure you want to delete{" "}
+              <span className="font-semibold">
+                {selectedProducts.length} products
+              </span>
+              ?
+            </>
+          ) : (
+            <>
+              Are you sure you want to delete{" "}
+              <span className="font-semibold">
+                {product?.name}
+              </span>
+              ?
+            </>
+          )}
         </p>
 
         <p className=" text-red-500 text-sm mt-2">

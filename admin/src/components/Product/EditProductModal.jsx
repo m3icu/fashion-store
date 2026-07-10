@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCategories } from "../../hooks/useCategories";
 import VariantTable from "../../components/Product/VariantTable";
 import UploadImage from "../../components/Product/UploadImage";
+import toast from "react-hot-toast";
 import {
   updateProduct,
   updateProductImage,
@@ -59,6 +60,7 @@ async function handleUpdate() {
       categoryId,
       imageUrl,
       variants: variants.map((v) => ({
+        id: v.id,
         sku: v.sku,
         variantName: v. variantName,
         price: Number(v.price),
@@ -73,14 +75,14 @@ async function handleUpdate() {
 
     console.log("RESULT", result);
 
-    alert("Produk berhasil diupdate!");
+    toast.success("Produk berhasil diupdate!");
 
     onClose();
 
   } catch (error) {
     console.error(error);
     console.log(error.response?.data);
-    alert("Gagal update produk");
+    toast.error("Gagal update produk");
   }
 }
 
